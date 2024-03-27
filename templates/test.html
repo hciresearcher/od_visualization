@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HCI-Data Viz</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+
+    <!-- Style (.css) setting -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/frame.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tab.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkbox.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading.css') }}">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/first.css') }}">    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+    <!-- Font setting -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet"> 
+</head>
+
+<body>
+    <div class="map_tab">
+        <input type="radio" name="tabmenu" id="heat_tab" checked>
+        <label for="heat_tab">Heat Map</label>
+        <input type="radio" name="tabmenu" id="flow_tab">
+        <label for="flow_tab">Flow Map</label>
+
+        <div class="conbox con1">
+            <form id="myForm" action="/main/process" method="POST" onsubmit="return validateForm_heat()">
+                <br>
+                <div class="condition-label2">
+                    <label class="label_set">선택 연도</label><input type="checkbox" class="checkall" id="selectAllYear1"><br>
+                    <div class="checkboxes1">
+                        <label><input type="checkbox" name="year" value="2019년" class="cb1" id="cbtest1" {% if '2019년' in selected_year %}checked{% endif %}> 2019</label>
+                        <label><input type="checkbox" name="year" value="2020년" class="cb1" id="cbtest1" {% if '2020년' in selected_year %}checked{% endif %}> 2020</label>
+                        <label><input type="checkbox" name="year" value="2021년" class="cb1" id="cbtest1" {% if '2021년' in selected_year %}checked{% endif %}> 2021</label>
+                        <label><input type="checkbox" name="year" value="2022년" class="cb1" id="cbtest1" {% if '2022년' in selected_year %}checked{% endif %}> 2022</label>
+                    </div>
+                </div>
+                
+                <div class="condition-label">
+                    <label class="label_set">선택 월</label><input type="checkbox" class="checkall" id="selectAllMonth1"><br>
+                    <div class="checkboxes1">
+                    <label><input type="checkbox" name="month" value=" 1월" class="cb2" id="cbtest2" {% if ' 1월' in selected_month %}checked{% endif %}> 1월</label>
+                    <label><input type="checkbox" name="month" value=" 2월" class="cb2" id="cbtest2" {% if ' 2월' in selected_month %}checked{% endif %}> 2월</label>
+                    <label><input type="checkbox" name="month" value=" 3월" class="cb2" id="cbtest2" {% if ' 3월' in selected_month %}checked{% endif %}> 3월</label>
+                    <label><input type="checkbox" name="month" value=" 4월" class="cb2" id="cbtest2" {% if ' 4월' in selected_month %}checked{% endif %}> 4월</label>
+                    <label><input type="checkbox" name="month" value=" 5월" class="cb2" id="cbtest2" {% if ' 5월' in selected_month %}checked{% endif %}> 5월</label>
+                    <label><input type="checkbox" name="month" value=" 6월" class="cb2" id="cbtest2" {% if ' 6월' in selected_month %}checked{% endif %}> 6월</label>
+                    <label><input type="checkbox" name="month" value=" 7월" class="cb2" id="cbtest2" {% if ' 7월' in selected_month %}checked{% endif %}> 7월</label>
+                    <label><input type="checkbox" name="month" value=" 8월" class="cb2" id="cbtest2" {% if ' 8월' in selected_month %}checked{% endif %}> 8월</label>
+                    <label><input type="checkbox" name="month" value=" 9월" class="cb2" id="cbtest2" {% if ' 9월' in selected_month %}checked{% endif %}> 9월</label>
+                    <label><input type="checkbox" name="month" value=" 10월" class="cb2" id="cbtest2" {% if ' 10월' in selected_month %}checked{% endif %}> 10월</label>
+                    <label><input type="checkbox" name="month" value=" 11월" class="cb2" id="cbtest2" {% if ' 11월' in selected_month %}checked{% endif %}> 11월</label>
+                    <label><input type="checkbox" name="month" value=" 12월" class="cb2" id="cbtest2" {% if ' 12월' in selected_month %}checked{% endif %}> 12월</label>            
+                    </div>
+                </div>
+                
+                <div class="condition-label">
+                    <label class="label_set">선택 시간대</label><input type="checkbox" class="checkall" id="selectAllHour1"><br>
+                    <div class="checkboxes2">
+                    <label><input type="checkbox" name="hour" value=" 0시" class="cb3" id="cbtest3" {% if ' 0시' in selected_hour %}checked{% endif %}> 0시~1시</label>
+                    <label><input type="checkbox" name="hour" value=" 1시" class="cb3" id="cbtest3" {% if ' 1시' in selected_hour %}checked{% endif %}> 1시~2시</label>
+                    <label><input type="checkbox" name="hour" value=" 2시" class="cb3" id="cbtest3" {% if ' 2시' in selected_hour %}checked{% endif %}> 2시~3시</label>
+                    <label><input type="checkbox" name="hour" value=" 3시" class="cb3" id="cbtest3" {% if ' 3시' in selected_hour %}checked{% endif %}> 3시~4시</label>
+                    <label><input type="checkbox" name="hour" value=" 4시" class="cb3" id="cbtest3" {% if ' 4시' in selected_hour %}checked{% endif %}> 4시~5시</label>
+                    <label><input type="checkbox" name="hour" value=" 5시" class="cb3" id="cbtest3" {% if ' 5시' in selected_hour %}checked{% endif %}> 5시~6시</label>
+                    <label><input type="checkbox" name="hour" value=" 6시" class="cb3" id="cbtest3" {% if ' 6시' in selected_hour %}checked{% endif %}> 6시~7시</label>
+                    <label><input type="checkbox" name="hour" value=" 7시" class="cb3" id="cbtest3" {% if ' 7시' in selected_hour %}checked{% endif %}> 7시~8시</label>
+                    <label><input type="checkbox" name="hour" value=" 8시" class="cb3" id="cbtest3" {% if ' 8시' in selected_hour %}checked{% endif %}> 8시~9시</label>
+                    <label><input type="checkbox" name="hour" value=" 9시" class="cb3" id="cbtest3" {% if ' 9시' in selected_hour %}checked{% endif %}> 9시~10시</label>
+                    <label><input type="checkbox" name="hour" value=" 10시" class="cb3" id="cbtest3" {% if ' 10시' in selected_hour %}checked{% endif %}> 10시~11시</label>
+                    <label><input type="checkbox" name="hour" value=" 11시" class="cb3" id="cbtest3" {% if ' 11시' in selected_hour %}checked{% endif %}> 11시~12시</label>
+                    <label><input type="checkbox" name="hour" value=" 12시" class="cb3" id="cbtest3" {% if ' 12시' in selected_hour %}checked{% endif %}> 12시~13시</label>
+                    <label><input type="checkbox" name="hour" value=" 13시" class="cb3" id="cbtest3" {% if ' 13시' in selected_hour %}checked{% endif %}> 13시~14시</label>
+                    <label><input type="checkbox" name="hour" value=" 14시" class="cb3" id="cbtest3" {% if ' 14시' in selected_hour %}checked{% endif %}> 14시~15시</label>
+                    <label><input type="checkbox" name="hour" value=" 15시" class="cb3" id="cbtest3" {% if ' 15시' in selected_hour %}checked{% endif %}> 15시~16시</label>
+                    <label><input type="checkbox" name="hour" value=" 16시" class="cb3" id="cbtest3" {% if ' 16시' in selected_hour %}checked{% endif %}> 16시~17시</label>
+                    <label><input type="checkbox" name="hour" value=" 17시" class="cb3" id="cbtest3" {% if ' 17시' in selected_hour %}checked{% endif %}> 17시~18시</label>
+                    <label><input type="checkbox" name="hour" value=" 18시" class="cb3" id="cbtest3" {% if ' 18시' in selected_hour %}checked{% endif %}> 18시~19시</label>
+                    <label><input type="checkbox" name="hour" value=" 19시" class="cb3" id="cbtest3" {% if ' 19시' in selected_hour %}checked{% endif %}> 19시~20시</label>
+                    <label><input type="checkbox" name="hour" value=" 20시" class="cb3" id="cbtest3" {% if ' 20시' in selected_hour %}checked{% endif %}> 20시~21시</label>
+                    <label><input type="checkbox" name="hour" value=" 21시" class="cb3" id="cbtest3" {% if ' 21시' in selected_hour %}checked{% endif %}> 21시~22시</label>
+                    <label><input type="checkbox" name="hour" value=" 22시" class="cb3" id="cbtest3" {% if ' 22시' in selected_hour %}checked{% endif %}> 22시~23시</label>
+                    <label><input type="checkbox" name="hour" value=" 23시" class="cb3" id="cbtest3" {% if ' 23시' in selected_hour %}checked{% endif %}> 23시~00시</label>
+                    </div>
+                </div>
+                <div class="condition-label">
+                    <label class="label_set">선택 나이대</label><input type="checkbox" class="checkall" id="selectAllAge1"><br>
+                    <div class="checkboxes2">
+                    <label><input type="checkbox" name="age" value=" 0세" class="cb4" id="cbtest4" {% if ' 0세' in selected_age %}checked{% endif %}> 0~9세</label>
+                    <label><input type="checkbox" name="age" value=" 10세" class="cb4" id="cbtest4" {% if ' 10세' in selected_age %}checked{% endif %}> 10~19세</label>
+                    <label><input type="checkbox" name="age" value=" 20세" class="cb4" id="cbtest4" {% if ' 20세' in selected_age %}checked{% endif %}> 20~29세</label>
+                    <label><input type="checkbox" name="age" value=" 30세" class="cb4" id="cbtest4" {% if ' 30세' in selected_age %}checked{% endif %}> 30~39세</label>
+                    <label><input type="checkbox" name="age" value=" 40세" class="cb4" id="cbtest4" {% if ' 40세' in selected_age %}checked{% endif %}> 40~49세</label>
+                    <label><input type="checkbox" name="age" value=" 50세" class="cb4" id="cbtest4" {% if ' 50세' in selected_age %}checked{% endif %}> 50~59세</label>
+                    <label><input type="checkbox" name="age" value=" 60세" class="cb4" id="cbtest4" {% if ' 60세' in selected_age %}checked{% endif %}> 60~69세</label>
+                    <label><input type="checkbox" name="age" value=" 70세" class="cb4" id="cbtest4" {% if ' 70세' in selected_age %}checked{% endif %}> 70~79세</label>
+                    <label><input type="checkbox" name="age" value=" 80세" class="cb4" id="cbtest4" {% if ' 80세' in selected_age %}checked{% endif %}> 80세 이상</label>
+                    </div>
+                </div>
+                
+                <div class="dropdown-grid">
+                    <div class="dropdown-area1">
+                        <div class="dropdown-title">
+                            <h3>유입/유출</h3>
+                        </div>
+                        <select name="od", id="od_data">
+                            <option value="유입" {% if selected_od == '유입' %}selected{% endif %}>유입</option>
+                            <option value="유출" {% if selected_od == '유출' %}selected{% endif %}>유출</option>
+                            <option value="유입+유출" {% if selected_od == '유입+유출' %}selected{% endif %}>유입+유출</option>
+                        </select>
+                    </div>
+    
+                    <div class="dropdown-area2">
+                        <div class="dropdown-title">
+                            <h3>성별</h3>
+                        </div>
+                        <select name="sex", id="sex_data">
+                            <option value="남성" {% if selected_sex == '남성' %}selected{% endif %}>남성</option>
+                            <option value="여성" {% if selected_sex == '여성' %}selected{% endif %}>여성</option>
+                            <option value="남성+여성" {% if selected_sex == '남성+여성' %}selected{% endif %}>남성+여성</option>
+                        </select>
+                    </div>
+    
+                    <div class="dropdown-area2">
+                        <div class="dropdown-title">
+                            <h3>분포기준</h3>
+                        </div>
+                        <select name="distribution", id="dist_data">
+                            <option value="이동인구수(명)" {% if selected_dist == '이동인구수(명)' %}selected{% endif %}>인원수</option>
+                            <option value="평균 이동거리(m)" {% if selected_dist == '평균 이동거리(m)' %}selected{% endif %}>이동거리</option>
+                            <option value="평균 이동시간(분)" {% if selected_dist == '평균 이동시간(분)' %}selected{% endif %}>이동시간</option>
+                        </select>
+                    </div>
+    
+                    <div class="dropdown-area1">
+                        <div class="dropdown-title">
+                            <h3>지도 색상</h3>
+                        </div>
+                        <select name="map_color" style="width:80px" id="color_data">
+                            <option value="OrRd" {% if selected_color == 'OrRd' %}selected{% endif %}>빨강</option>
+                            <option value="BuPu" {% if selected_color == 'BuPu' %}selected{% endif %}>파랑</option>
+                            <option value="YlGn" {% if selected_color == 'YlGn' %}selected{% endif %}>초록</option>
+                        </select>
+                    </div>
+    
+                    <div class="dropdown-area2">
+                        <div class="dropdown-title">
+                            <h3>최대 기준치</h3>
+                        </div>
+                        <select name="criteria_value", id="criteria_data">
+                            <option value="선택안함">선택안함</option>
+                            <option value="100" {% if selected_criteria == '100' %}selected{% endif %}>100</option>
+                            <option value="1000" {% if selected_criteria == '1000' %}selected{% endif %}>1,000</option>
+                            <option value="10000" {% if selected_criteria == '10000' %}selected{% endif %}>10,000</option>
+                            <option value="50000" {% if selected_criteria == '50000' %}selected{% endif %}>50,000</option>
+                            <option value="100000" {% if selected_criteria == '100000' %}selected{% endif %}>100,000</option>
+                            <option value="1000000" {% if selected_criteria == '1000000' %}selected{% endif %}>1,000,000</option>
+                        </select>
+                    </div>
+                </div>
+                    <button class="button" type="submit" id="btnValue" name="submit_button" value="heat">HeatMap으로 보기</button>
+                    <br><br><br>
+            </form>
+        </div>
+
+        <div class="conbox con2"> 
+            <form id="myForm" action="/main/process" method="POST" onsubmit="return validateForm_flow()">
+                <br>
+                <div class="condition-label2">
+                    <label class="label_set">선택 연도</label><input type="checkbox" class="checkall" id="selectAllYear2"><br>
+                    <div class="checkboxes1">
+                    <label><input type="checkbox" name="year" value="2019년" class="cb5" id="cbtest5"> 2019</label>
+                    <label><input type="checkbox" name="year" value="2020년" class="cb5" id="cbtest5"> 2020</label>
+                    <label><input type="checkbox" name="year" value="2021년" class="cb5" id="cbtest5"> 2021</label>
+                    <label><input type="checkbox" name="year" value="2022년" class="cb5" id="cbtest5"> 2022</label>
+                    </div>
+                </div>
+                
+                <div class="condition-label">
+                    <label class="label_set">선택 월</label><input type="checkbox" class="checkall" id="selectAllMonth2"><br>
+                    <div class="checkboxes1">
+                    <label><input type="checkbox" name="month" value=" 1월" class="cb6" id="cbtest6"> 1월</label>
+                    <label><input type="checkbox" name="month" value=" 2월" class="cb6" id="cbtest6"> 2월</label>
+                    <label><input type="checkbox" name="month" value=" 3월" class="cb6" id="cbtest6"> 3월</label>
+                    <label><input type="checkbox" name="month" value=" 4월" class="cb6" id="cbtest6"> 4월</label>
+                    <label><input type="checkbox" name="month" value=" 5월" class="cb6" id="cbtest6"> 5월</label>
+                    <label><input type="checkbox" name="month" value=" 6월" class="cb6" id="cbtest6"> 6월</label>
+                    <label><input type="checkbox" name="month" value=" 7월" class="cb6" id="cbtest6"> 7월</label>
+                    <label><input type="checkbox" name="month" value=" 8월" class="cb6" id="cbtest6"> 8월</label>
+                    <label><input type="checkbox" name="month" value=" 9월" class="cb6" id="cbtest6"> 9월</label>
+                    <label><input type="checkbox" name="month" value=" 10월" class="cb6" id="cbtest6"> 10월</label>
+                    <label><input type="checkbox" name="month" value=" 11월" class="cb6" id="cbtest6"> 11월</label>
+                    <label><input type="checkbox" name="month" value=" 12월" class="cb6" id="cbtest6"> 12월</label>            
+                    </div>
+                </div>
+                
+                <div class="condition-label">
+                    <label class="label_set">선택 시간대</label><input type="checkbox" class="checkall" id="selectAllHour2"><br>
+                    <div class="checkboxes2">
+                    <label><input type="checkbox" name="hour" value=" 0시" class="cb7" id="cbtest7"> 0시~1시</label>
+                    <label><input type="checkbox" name="hour" value=" 1시" class="cb7" id="cbtest7"> 1시~2시</label>
+                    <label><input type="checkbox" name="hour" value=" 2시" class="cb7" id="cbtest7"> 2시~3시</label>
+                    <label><input type="checkbox" name="hour" value=" 3시" class="cb7" id="cbtest7"> 3시~4시</label>
+                    <label><input type="checkbox" name="hour" value=" 4시" class="cb7" id="cbtest7"> 4시~5시</label>
+                    <label><input type="checkbox" name="hour" value=" 5시" class="cb7" id="cbtest7"> 5시~6시</label>
+                    <label><input type="checkbox" name="hour" value=" 6시" class="cb7" id="cbtest7"> 6시~7시</label>
+                    <label><input type="checkbox" name="hour" value=" 7시" class="cb7" id="cbtest7"> 7시~8시</label>
+                    <label><input type="checkbox" name="hour" value=" 8시" class="cb7" id="cbtest7"> 8시~9시</label>
+                    <label><input type="checkbox" name="hour" value=" 9시" class="cb7" id="cbtest7"> 9시~10시</label>
+                    <label><input type="checkbox" name="hour" value=" 10시" class="cb7" id="cbtest7"> 10시~11시</label>
+                    <label><input type="checkbox" name="hour" value=" 11시" class="cb7" id="cbtest7"> 11시~12시</label>
+                    <label><input type="checkbox" name="hour" value=" 12시" class="cb7" id="cbtest7"> 12시~13시</label>
+                    <label><input type="checkbox" name="hour" value=" 13시" class="cb7" id="cbtest7"> 13시~14시</label>
+                    <label><input type="checkbox" name="hour" value=" 14시" class="cb7" id="cbtest7"> 14시~15시</label>
+                    <label><input type="checkbox" name="hour" value=" 15시" class="cb7" id="cbtest7"> 15시~16시</label>
+                    <label><input type="checkbox" name="hour" value=" 16시" class="cb7" id="cbtest7"> 16시~17시</label>
+                    <label><input type="checkbox" name="hour" value=" 17시" class="cb7" id="cbtest7"> 17시~18시</label>
+                    <label><input type="checkbox" name="hour" value=" 18시" class="cb7" id="cbtest7"> 18시~19시</label>
+                    <label><input type="checkbox" name="hour" value=" 19시" class="cb7" id="cbtest7"> 19시~20시</label>
+                    <label><input type="checkbox" name="hour" value=" 20시" class="cb7" id="cbtest7"> 20시~21시</label>
+                    <label><input type="checkbox" name="hour" value=" 21시" class="cb7" id="cbtest7"> 21시~22시</label>
+                    <label><input type="checkbox" name="hour" value=" 22시" class="cb7" id="cbtest7"> 22시~23시</label>
+                    <label><input type="checkbox" name="hour" value=" 23시" class="cb7" id="cbtest7"> 23시~00시</label>
+                    </div>
+                </div>
+                <div class="condition-label">
+                    <label class="label_set">선택 나이대</label><input type="checkbox" class="checkall" id="selectAllAge2"><br>
+                    <div class="checkboxes2">
+                    <label><input type="checkbox" name="age" value=" 0세" class="cb8" id="cbtest8"> 0~9세</label>
+                    <label><input type="checkbox" name="age" value=" 10세" class="cb8" id="cbtest8"> 10~19세</label>
+                    <label><input type="checkbox" name="age" value=" 20세" class="cb8" id="cbtest8"> 20~29세</label>
+                    <label><input type="checkbox" name="age" value=" 30세" class="cb8" id="cbtest8"> 30~39세</label>
+                    <label><input type="checkbox" name="age" value=" 40세" class="cb8" id="cbtest8"> 40~49세</label>
+                    <label><input type="checkbox" name="age" value=" 50세" class="cb8" id="cbtest8"> 50~59세</label>
+                    <label><input type="checkbox" name="age" value=" 60세" class="cb8" id="cbtest8"> 60~69세</label>
+                    <label><input type="checkbox" name="age" value=" 70세" class="cb8" id="cbtest8"> 70~79세</label>
+                    <label><input type="checkbox" name="age" value=" 80세" class="cb8" id="cbtest8"> 80세 이상</label>
+                    </div>
+                </div>
+                
+                <div class="dropdown-grid">
+                    <div class="dropdown-area1">
+                        <div class="dropdown-title">
+                            <h3>유입/유출</h3>
+                        </div>
+                        <select name="od", id="od_data2">
+                            <option value="유입">유입</option>
+                            <option value="유출">유출</option>
+                            <option value="유입+유출">유입+유출</option>
+                        </select>
+                    </div>
+    
+                    <div class="dropdown-area2">
+                        <div class="dropdown-title">
+                            <h3>성별</h3>
+                        </div>
+                        <select name="sex", id="sex_data2">
+                            <option value="남성">남성</option>
+                            <option value="여성">여성</option>
+                            <option value="남성+여성">남성+여성</option>
+                        </select>
+                    </div>
+    
+                    <div class="dropdown-area2">
+                        <div class="dropdown-title">
+                            <h3>분포기준</h3>
+                        </div>
+                        <select name="distribution", id="dist_data2">
+                            <option value="personcount">인원수</option>
+                            <option value="dist">이동거리</option>
+                            <option value="ttime">이동시간</option>
+                        </select>
+                    </div>
+    
+                    <div class="dropdown-area1">
+                        <div class="dropdown-title">
+                            <h3>지도 색상</h3>
+                        </div>
+                        <select name="map_color" style="width:80px" id="color_data">
+                            <option value="OrRd">빨강</option>
+                            <option value="BuPu">파랑</option>
+                            <option value="YlGn">초록</option>
+                        </select>
+                    </div>
+    
+                    <div class="dropdown-area2">
+                        <div class="dropdown-title">
+                            <h3>최소 기준치</h3>
+                        </div>
+                        <select name="criteria_value", id="criteria_data">
+                            <option value="선택안함">선택안함</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+                    <button class="button" type="submit" id="btnValue" name="submit_button" value="flow">FlowMap으로 보기</button>
+                    <br><br><br>
+            </form>
+        </div>
+    </div>
+    <div class="map-container" id="mapContainer">
+        {{ map_html|safe }}
+    </div>
+
+    <div id="loading" style="z-index:10000; display:none;">
+        <img src="static/images/loading.gif">
+    </div>
+
+    <script src="{{ url_for('static', filename='javasripts/check_all.js') }}"></script>
+    <script src="{{ url_for('static', filename='javasripts/tab_page.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+    
+    <script>
+
+    function validateForm_heat() {
+        
+        var con1 = $('input:checkbox[id="cbtest1"]').is(":checked")
+        var con2 = $('input:checkbox[id="cbtest2"]').is(":checked")
+        var con3 = $('input:checkbox[id="cbtest3"]').is(":checked")
+        var con4 = $('input:checkbox[id="cbtest4"]').is(":checked")
+        
+        if (!(con1 && con2 && con3 && con4)) {
+            swal("경고", "미선택한 조건이 있습니다.",'info')
+            return false; // 폼 제출 방지
+        }
+        showLoadingScreen()
+        return true; // 폼 제출 허용
+    }
+
+    function validateForm_flow() {
+        
+        var con5 = $('input:checkbox[id="cbtest5"]').is(":checked")
+        var con6 = $('input:checkbox[id="cbtest6"]').is(":checked")
+        var con7 = $('input:checkbox[id="cbtest7"]').is(":checked")
+        var con8 = $('input:checkbox[id="cbtest8"]').is(":checked")
+        
+        if (!(con5 && con6 && con7 && con8)) {
+            swal("경고", "미선택한 조건이 있습니다.",'info')
+            return false; // 폼 제출 방지
+        }
+
+        showLoadingScreen()
+        return true; // 폼 제출 허용
+    }
+    function showLoadingScreen() {
+        document.getElementById('loading').style.display = 'block';
+    }
+    </script>
+    <!-- <script src="./test.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCI-Data Viz</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/first.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Font setting -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="first_page">
+        <div class="nav">
+        </div>
+        <div class="main">
+            <div class="title">
+                Data Visualization
+            </div>
+            <div class="subtitle">
+                본 서비스는 KT 생활이동 데이터를 활용해서 서울 시민들의 이동성을 시각화한 웹서비스입니다.
+            </div>
+
+            <div class="prices">
+                <div class="price-item" id='left-image'>
+                    <div class="price-item-title">
+                        HEAT MAP
+                    </div>
+                    <div>
+                        <img src="{{ url_for('static', filename='images/heat.jpg') }}">
+                    </div>
+                    <div class="heat_description">
+                        Heat Map은 유동 인구의 집중도를 색상의 진하기를 달리하여 시각적으로 나타냅니다. 일반적으로 높은 집중도는 진한 색으로 표현되고,
+                        낮은 집중도는 연한 색으로 나타냅니다. 이러한 단순성 때문에 사용자가 데이터의 전반적인 분포를 쉽게 파악할 수 있다는 장점이 있습니다.
+                    </div>
+                </div>
+                <div class="price-item" id='right-image'>
+                    <div class="price-item-title">
+                        FLOW MAP
+                    </div>
+                    <div>
+                        <img src="{{ url_for('static', filename='images/flow.jpg') }}">
+                    </div>
+                    <div class="flow_description">
+                        Flow Map은 어떤 객체가 한 장소에서 다른 장소로 이동하는 흐름을 시각적으로 보여줍니다.
+                        이동 경로를 선으로 나타내서 흐름의 방향을 쉽게 이해할 수 있고 여러 지점 간의 연결성을 분석하는데 용이합니다.
+                        이 두 시각화 방법은 데이터의 특성과 목적에 따라 선택되고, 종종 함께 사용되어 데이터의 다양한 측면을 이해하는 데 활용됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <button class="start_button" onclick="location.href='/main'">
+                Click me
+            </button>
+            <br><br><br><br>
+        </div>
+        <div class="bottom_line">
+
+        </div>
+    </div>
+</body>
+
+</html>

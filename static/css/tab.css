@@ -1,0 +1,65 @@
+:root {
+    /* 여기서는 전역 변수 선언 (변수명 앞에는 --를 붙여준다) */
+    --side-bar-width: 440px;
+    --side-bar-height: 65vh;
+}
+
+/* #은 id 선택자, .(점)은 클래스 선택자, ~ 바로 옆 태그 선택 */
+.map_tab {
+    position: fixed;    /* 스크롤을 따라오도록 지정 */
+    width: var(--side-bar-width);
+    min-height: var(--side-bar-height);   
+    margin-top: calc((100vh - var(--side-bar-height)) / 2);
+    max-height: 80%;
+
+    transform: translate(calc(var(--side-bar-width) * -0.9), 0);
+    transition: all .5s;
+
+    font-family: "Noto Sans KR", sans-serif;
+    z-index: 10;
+    overflow: hidden; /* 넘치면 안보이게 */
+}
+
+/* 마우스 오버레이 동작 설정 */
+.map_tab:hover {
+    transform: translate(-10px, 0);   /* 둥근 모서리의 너비만큼 숨겨주기 */
+    display: block;
+}
+
+.conbox {
+    width: 100%;
+    height: 100%;
+    background: #e4dad2;
+    margin: 0 auto;
+    display: none;
+    border-radius: 10px;
+}
+
+/* 마우스 오버레이 동작 설정 */
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    display: inline-block;
+    padding: 20px;
+    background: #d8cbbc;
+    color: #c5bbb2;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+input[type="radio"]:checked + label {
+    background: #e4dad2;
+    color: #000;
+}
+
+input[id="heat_tab"]:checked ~ .con1 {
+    display: block;
+}
+
+input[id="flow_tab"]:checked ~ .con2 {
+    display: block;
+}

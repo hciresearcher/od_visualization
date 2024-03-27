@@ -1,0 +1,16 @@
+#loading {
+  width: 100%; height: 100%;
+  position: fixed; 
+  display: block;  /* block는 좌우측에 다른 요소를 붙일 수가 없다 -> 혼자 한 줄 차지 */ 
+  opacity: 0.4;    /* 로딩창 투명도 */
+  text-align: center;
+  background: #ffff;
+  z-index: 10000;
+}
+
+#loading > img {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+}
+
